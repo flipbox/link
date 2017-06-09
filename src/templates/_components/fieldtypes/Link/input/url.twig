@@ -1,0 +1,21 @@
+{% import "_includes/forms" as forms %}
+
+{{ forms.textField({
+    label: 'Text'|t('link'),
+    instructions: 'Enter the text for the link'|t('link'),
+    name: 'text',
+    id: 'text',
+    value: type.text,
+    errors: type.getErrors('text'),
+    required: true
+}) }}
+
+{{ forms.textField({
+    label: 'Url'|t('link'),
+    instructions: 'Enter the url'|t('link'),
+    name: 'url',
+    id: 'url',
+    value: type.url,
+    errors: type.getErrors('url'),
+    required: true
+}) }}

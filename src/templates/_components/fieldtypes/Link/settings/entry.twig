@@ -1,0 +1,35 @@
+{% import "_includes/forms" as forms %}
+
+<hr>
+
+{% if sections %}
+    {% set sectionOptions = [] %}
+    {% for section in sections %}
+        {% set sectionOptions = sectionOptions|merge([{
+        label: section.name,
+        value: section.id
+        }]) %}
+    {% endfor %}
+
+    {{ forms.checkboxSelectField({
+        label: "Entry sections"|t,
+        instructions: "Which sections do you want to select entries from?"|t,
+        id: 'sections',
+        name: 'sections',
+        options: sectionOptions,
+        values: type.sections,
+        errors: type.getErrors('sections'),
+    }) }}
+
+    {{ forms.textField({
+        label: "Entry Selection Label"|t,
+        instructions: "Enter the text you want to appear on the entry selection input."|t,
+        name: 'label',
+        value: type.label
+    }) }}
+{% else %}
+    {{ forms.field({
+        label: "Entry Sources"|t,
+        instructions: "No entry sources exist yet."|t
+    }) }}
+{% endif %}

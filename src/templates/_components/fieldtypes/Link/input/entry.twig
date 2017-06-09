@@ -1,0 +1,26 @@
+{% import "_includes/forms" as forms %}
+
+{{ forms.elementSelectField({
+    name: 'id',
+    id: 'id',
+    source: 'section:2',
+    elements: elements,
+    elementType: elementType,
+    criteria: criteria,
+    limit: 1,
+    selectionLabel: type.label,
+    sourceElementId: sourceElementId,
+    storageKey: 'field.'~field.id~'.'~className(type)
+}) }}
+
+{% if type.overrideText %}
+    {{ forms.textField({
+        label: 'Text'|t('link'),
+        instructions: 'Enter the text for the link'|t('link'),
+        name: 'text',
+        id: 'text',
+        value: type.text,
+        errors: type.getErrors('text'),
+        required: true
+    }) }}
+{% endif %}

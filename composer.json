@@ -2,6 +2,7 @@
   "name": "flipboxdigital/link",
   "description": "Link Field Type",
   "version": "1.0.0-beta.1",
+  "type": "craft-plugin",
   "minimum-stability": "beta",
   "prefer-stable": true,
   "config": {

@@ -3,7 +3,7 @@
 namespace flipbox\link\types;
 
 use Craft;
-use craft\elements\Entry;
+use craft\elements\Entry as EntryElement;
 use craft\base\ElementInterface;
 use flipbox\link\fields\Link;
 use yii\base\Exception;
@@ -148,7 +148,7 @@ class Entry extends AbstractType
                 'type' => $this,
                 'criteria' => $this->getCriteria(),
                 'field' => $field,
-                'elementType' => Entry::class
+                'elementType' => EntryElement::class
             ]
         );
     }

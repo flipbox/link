@@ -25,21 +25,19 @@ label: 'Link type'|t('link')
 </div>
 
 {% js %}
-Craft.updateTypeSettings = function(type, container) {
+    Craft.updateTypeSettings = function(type, $container) {
+        var type = type.replace(/\\/g, '-');
 
-var $container = $(container);
-type = type.replace(/\\/g, '-');
+        $container.find(".settings").addClass('hidden');
+        $container.find("#"+type).removeClass('hidden');
+    }
 
-$container.find(".settings").addClass('hidden');
-$container.find("#"+type).removeClass('hidden');
-}
-
-var $container = $("#{{ 'field-type-flipbox-link'|namespaceInputId|e('js') }}"),
-$typeInput = $container.find("#{{ 'class'|namespaceInputId|e('js') }}");
-
-$typeInput.change(function(e) {
-Craft.updateTypeSettings('{{ ''|namespaceInputId }}'+$(this).val(), $container);
-});
+    $("#{{ 'field-type-flipbox-link'|namespaceInputId|e('js') }}").find("#{{ 'class'|namespaceInputId|e('js') }}").change(function(e) {
+        Craft.updateTypeSettings(
+            '{{ ''|namespaceInputId }}'+$(this).val(),
+            $("#{{ 'field-type-flipbox-link'|namespaceInputId|e('js') }}")
+        );
+    });
 {% endjs %}
 {% endnamespace %}
 

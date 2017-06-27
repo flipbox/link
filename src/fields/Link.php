@@ -118,6 +118,10 @@ class Link extends BaseField
      */
     public function serializeValue($value, ElementInterface $element = null)
     {
+        if($value === null) {
+            return $value;
+        }
+
         $value = array_merge(
             [
                 'class' => get_class($value),
@@ -152,7 +156,7 @@ class Link extends BaseField
     public function normalizeValue($value, ElementInterface $element = null)
     {
         if (is_string($value) && !empty($value)) {
-            $value = Json::decode($value);
+            $value = Json::decodeIfJson($value);
         }
 
         if ($value instanceof TypeInterface) {

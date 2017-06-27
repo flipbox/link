@@ -3,6 +3,7 @@
 namespace flipbox\link\types;
 
 use Craft;
+use craft\elements\Entry;
 use craft\base\ElementInterface;
 use flipbox\link\fields\Link;
 use yii\base\Exception;
@@ -142,12 +143,12 @@ class Entry extends AbstractType
             'link/_components/fieldtypes/Link/input/entry',
             [
                 'value' => $value,
-                'sourceElementId' => $element->id,
+                'sourceElementId' => $element ? $element->id : null,
                 'elements' => $this->id ? [$this->getEntry()] : [],
                 'type' => $this,
                 'criteria' => $this->getCriteria(),
                 'field' => $field,
-                'elementType' => \craft\elements\Entry::class
+                'elementType' => Entry::class
             ]
         );
     }

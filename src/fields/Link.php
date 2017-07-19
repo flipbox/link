@@ -118,7 +118,7 @@ class Link extends BaseField
      */
     public function serializeValue($value, ElementInterface $element = null)
     {
-        if($value === null) {
+        if ($value === null) {
             return $value;
         }
 

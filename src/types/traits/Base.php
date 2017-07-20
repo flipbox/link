@@ -1,10 +1,20 @@
 <?php
 
+/**
+ * @copyright  Copyright (c) Flipbox Digital Limited
+ * @license    https://flipboxfactory.com/software/link/license
+ * @link       https://www.flipboxfactory.com/software/link/
+ */
+
 namespace flipbox\link\types\traits;
 
 use craft\helpers\ArrayHelper;
 use craft\helpers\StringHelper;
 
+/**
+ * @author Flipbox Factory <hello@flipboxfactory.com>
+ * @since 1.0.0
+ */
 trait Base
 {
 

@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @copyright  Copyright (c) Flipbox Digital Limited
+ * @license    https://flipboxfactory.com/software/link/license
+ * @link       https://www.flipboxfactory.com/software/link/
+ */
+
 namespace flipbox\link\types;
 
 use Craft;
@@ -9,6 +15,9 @@ use craft\fields\Entries;
 use craft\helpers\ArrayHelper;
 
 /**
+ * @author Flipbox Factory <hello@flipboxfactory.com>
+ * @since 1.0.0
+ *
  * @method EntryElement findElement()
  */
 class Entry extends Entries implements TypeInterface

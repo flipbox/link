@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @copyright  Copyright (c) Flipbox Digital Limited
+ * @license    https://flipboxfactory.com/software/link/license
+ * @link       https://www.flipboxfactory.com/software/link/
+ */
+
 namespace flipbox\link\types\traits;
 
 use Craft;
@@ -7,6 +13,10 @@ use craft\base\ElementInterface;
 use flipbox\link\fields\Link;
 use flipbox\link\types\TypeInterface;
 
+/**
+ * @author Flipbox Factory <hello@flipboxfactory.com>
+ * @since 1.0.0
+ */
 trait Element
 {
     use Base;

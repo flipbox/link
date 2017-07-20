@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @copyright  Copyright (c) Flipbox Digital Limited
+ * @license    https://flipboxfactory.com/software/link/license
+ * @link       https://www.flipboxfactory.com/software/link/
+ */
+
 namespace flipbox\link;
 
 use craft\base\Plugin;
@@ -8,6 +14,10 @@ use craft\services\Fields;
 use flipbox\link\fields\Link as LinkField;
 use yii\base\Event;
 
+/**
+ * @author Flipbox Factory <hello@flipboxfactory.com>
+ * @since 1.0.0
+ */
 class Link extends Plugin
 {
     /**

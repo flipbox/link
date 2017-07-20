@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @copyright  Copyright (c) Flipbox Digital Limited
+ * @license    https://flipboxfactory.com/software/link/license
+ * @link       https://www.flipboxfactory.com/software/link/
+ */
+
 namespace flipbox\link\events;
 
 use flipbox\link\types\TypeInterface;

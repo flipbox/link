@@ -17,25 +17,6 @@ use craft\web\assets\cp\CpAsset;
  */
 class Settings extends AssetBundle
 {
-
-    /**
-     * @inheritdoc
-     */
-    public function init()
-    {
-
-        $this->js = [
-            'LinkConfiguration' . $this->dotJs()
-        ];
-
-        $this->css = [
-            'LinkConfiguration.css'
-        ];
-
-        parent::init();
-
-    }
-
     /**
      * @inheritdoc
      */
@@ -47,4 +28,20 @@ class Settings extends AssetBundle
     public $depends = [
         CpAsset::class,
     ];
+
+    /**
+     * @inheritdoc
+     */
+    public function init()
+    {
+        $this->js = [
+            'LinkConfiguration' . $this->dotJs()
+        ];
+
+        $this->css = [
+            'LinkConfiguration.css'
+        ];
+
+        parent::init();
+    }
 }

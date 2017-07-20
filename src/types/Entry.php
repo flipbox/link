@@ -3,9 +3,9 @@
 namespace flipbox\link\types;
 
 use Craft;
-use craft\fields\Entries;
 use craft\base\ElementInterface;
 use craft\elements\Entry as EntryElement;
+use craft\fields\Entries;
 use craft\helpers\ArrayHelper;
 
 /**

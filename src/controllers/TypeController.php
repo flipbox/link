@@ -3,11 +3,10 @@
 namespace flipbox\link\controllers;
 
 use Craft;
-use craft\helpers\ArrayHelper;
 use craft\web\Controller;
+use flipbox\link\Link;
 use yii\web\HttpException;
 use yii\web\Response;
-use flipbox\link\Link;
 
 /**
  * @author Flipbox Factory <hello@flipboxfactory.com>
@@ -30,7 +29,7 @@ class TypeController extends Controller
         $type = Link::getInstance()->getType()->find(
             Craft::$app->getRequest()->getRequiredBodyParam('type')
         );
-        
+
         if (!$type) {
             throw new HttpException("Type not found");
         }

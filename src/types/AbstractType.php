@@ -5,7 +5,6 @@ namespace flipbox\link\types;
 use Craft;
 use craft\base\ElementInterface;
 use flipbox\link\fields\Link;
-use craft\helpers\ArrayHelper;
 use yii\base\Model;
 
 abstract class AbstractType extends Model implements TypeInterface

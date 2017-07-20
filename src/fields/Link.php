@@ -51,7 +51,7 @@ class Link extends Field
      */
     public function setTypes(array $types)
     {
-        foreach($types as $identifier => $type) {
+        foreach ($types as $identifier => $type) {
             $this->typeConfigs[$identifier] = $type;
         }
         return $this;
@@ -64,15 +64,13 @@ class Link extends Field
     public function getType(string $identifier)
     {
         // Is it already an object?
-        if(!array_key_exists($identifier, $this->types)) {
-
+        if (!array_key_exists($identifier, $this->types)) {
             // Can we create it?
-            if(!$type = $this->createFromConfig($identifier)) {
+            if (!$type = $this->createFromConfig($identifier)) {
                 return null;
             }
 
             $this->types[$identifier] = $type;
-
         }
 
         return $this->types[$identifier];
@@ -85,7 +83,7 @@ class Link extends Field
      */
     private function resolveConfigs()
     {
-        foreach($this->typeConfigs as $identifier => $config) {
+        foreach ($this->typeConfigs as $identifier => $config) {
             $this->resolveConfig($identifier, $config);
         }
         $this->typeConfigs = [];
@@ -99,7 +97,7 @@ class Link extends Field
     private function resolveConfig(string $identifier, array $config)
     {
         // cCreate new
-        if(!$type = LinkPlugin::getInstance()->getType()->create($config)) {
+        if (!$type = LinkPlugin::getInstance()->getType()->create($config)) {
             return null;
         }
 
@@ -117,7 +115,7 @@ class Link extends Field
      */
     private function createFromConfig(string $identifier)
     {
-        if(!$config = ArrayHelper::remove($this->typeConfigs, $identifier)) {
+        if (!$config = ArrayHelper::remove($this->typeConfigs, $identifier)) {
             return null;
         }
 
@@ -184,7 +182,7 @@ class Link extends Field
             return $value;
         }
 
-        if($value instanceof TypeInterface) {
+        if ($value instanceof TypeInterface) {
             $value = array_merge(
                 [
                     'identifier' => $value->getIdentifier(),

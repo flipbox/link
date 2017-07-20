@@ -18,6 +18,7 @@ class TypeController extends Controller
 
     /**
      * @return Response
+     * @throws HttpException
      */
     public function actionSettings(): Response
     {
@@ -30,7 +31,7 @@ class TypeController extends Controller
             Craft::$app->getRequest()->getRequiredBodyParam('type')
         );
         
-        if(!$type) {
+        if (!$type) {
             throw new HttpException("Type not found");
         }
 

@@ -80,7 +80,7 @@ class Type extends Component
     public function populate(TypeInterface $type, array $properties)
     {
         foreach ($type->getProperties() as $key => $value) {
-            if(array_key_exists($key, $properties)) {
+            if (array_key_exists($key, $properties)) {
                 $type->{$key} = $properties[$key];
             }
         }

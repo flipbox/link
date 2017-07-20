@@ -3,6 +3,7 @@
 namespace flipbox\link\types;
 
 use Craft;
+use craft\fields\Entries;
 use craft\base\ElementInterface;
 use craft\elements\Entry as EntryElement;
 use craft\helpers\ArrayHelper;
@@ -10,7 +11,7 @@ use craft\helpers\ArrayHelper;
 /**
  * @method EntryElement findElement()
  */
-class Entry extends \craft\fields\Entries implements TypeInterface
+class Entry extends Entries implements TypeInterface
 {
 
     use traits\Element;
@@ -29,7 +30,7 @@ class Entry extends \craft\fields\Entries implements TypeInterface
      */
     public function getElementText(): string
     {
-        if(!$element = $this->findElement()) {
+        if (!$element = $this->findElement()) {
             return '';
         }
         return $element->title;
@@ -40,7 +41,7 @@ class Entry extends \craft\fields\Entries implements TypeInterface
      */
     public function getUrl(): string
     {
-        if(!$element = $this->findElement()) {
+        if (!$element = $this->findElement()) {
             return '';
         }
         return (string) $element->getUrl();

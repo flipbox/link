@@ -4,10 +4,8 @@ namespace flipbox\link\types\traits;
 
 use Craft;
 use craft\base\ElementInterface;
-use craft\helpers\ArrayHelper;
 use flipbox\link\fields\Link;
 use flipbox\link\types\TypeInterface;
-use yii\base\Exception;
 
 trait Element
 {
@@ -104,7 +102,9 @@ trait Element
         $this->elementId = (int)$elementId;
 
         // Clear element cache on change
-        if($this->element === false || ($this->element && $this->element->getId() !== $this->elementId)) {
+        if ($this->element === false ||
+            ($this->element && $this->element->getId() !== $this->elementId)
+        ) {
             $this->element = null;
         }
     }

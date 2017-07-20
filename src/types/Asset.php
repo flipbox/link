@@ -30,7 +30,7 @@ class Asset extends Assets implements TypeInterface
      */
     public function getElementText(): string
     {
-        if(!$element = $this->findElement()) {
+        if (!$element = $this->findElement()) {
             return '';
         }
         return $element->title;
@@ -41,7 +41,7 @@ class Asset extends Assets implements TypeInterface
      */
     public function getUrl(): string
     {
-        if(!$element = $this->findElement()) {
+        if (!$element = $this->findElement()) {
             return '';
         }
         return (string) $element->getUrl();

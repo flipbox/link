@@ -44,7 +44,7 @@ trait Base
      */
     public function getIdentifier(): string
     {
-        if($this->identifier === null) {
+        if ($this->identifier === null) {
             $this->identifier = StringHelper::randomString();
         }
         return $this->identifier;

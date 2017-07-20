@@ -10,7 +10,6 @@ use yii\base\Model;
 
 abstract class AbstractType extends Model implements TypeInterface
 {
-
     use traits\Base;
 
     /**
@@ -37,5 +36,4 @@ abstract class AbstractType extends Model implements TypeInterface
     {
         return '';
     }
-
 }

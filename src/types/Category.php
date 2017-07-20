@@ -4,16 +4,22 @@ namespace flipbox\link\types;
 
 use Craft;
 use craft\base\ElementInterface;
-use craft\elements\Entry as EntryElement;
+use craft\elements\Asset as AssetElement;
+use craft\fields\Categories;
 use craft\helpers\ArrayHelper;
 
 /**
- * @method EntryElement findElement()
+ * @method AssetElement findElement()
  */
-class Entry extends \craft\fields\Entries implements TypeInterface
+class Category extends Categories implements TypeInterface
 {
 
     use traits\Element;
+
+    public function getElements()
+    {
+        return null;
+    }
 
     /**
      * @inheritdoc
@@ -51,7 +57,18 @@ class Entry extends \craft\fields\Entries implements TypeInterface
      */
     protected function lookupElementById(int $id)
     {
-        return Craft::$app->getEntries()->getEntryById($id);
+        return Craft::$app->getCategories()->getCategoryById($id);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function inputTemplateVariables($value = null, ElementInterface $element = null): array
+    {
+        return parent::inputTemplateVariables(
+            $this->findElement() ? [$this->findElement()] : null,
+            $element
+        );
     }
 
     /**
@@ -66,16 +83,5 @@ class Entry extends \craft\fields\Entries implements TypeInterface
         ArrayHelper::removeValue($settings, 'text');
 
         return $settings;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    protected function inputTemplateVariables($value = null, ElementInterface $element = null): array
-    {
-        return parent::inputTemplateVariables(
-            $this->findElement() ? [$this->findElement()] : null,
-            $element
-        );
     }
 }

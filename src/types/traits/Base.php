@@ -3,6 +3,7 @@
 namespace flipbox\link\types\traits;
 
 use craft\helpers\ArrayHelper;
+use craft\helpers\StringHelper;
 
 trait Base
 {
@@ -11,6 +12,11 @@ trait Base
      * @var string
      */
     public $text;
+
+    /**
+     * @var string
+     */
+    protected $identifier;
 
     /**
      * @return string
@@ -31,6 +37,27 @@ trait Base
     public function getText(): string
     {
         return $this->text;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIdentifier(): string
+    {
+        if($this->identifier === null) {
+            $this->identifier = StringHelper::randomString();
+        }
+        return $this->identifier;
+    }
+
+    /**
+     * @param string $identifier
+     * @return string
+     */
+    public function setIdentifier(string $identifier): string
+    {
+        $this->identifier = $identifier;
+        return $this;
     }
 
     /**

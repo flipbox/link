@@ -1,0 +1,22 @@
+/* Flexbox stuff */
+/* Other */
+/* RTL stuff */
+/* ----------------------------------------
+/* Link
+/* ----------------------------------------*/
+/* config */
+#flipbox-link-fields-Link .pane {
+  border: 1px solid #e3e5e8;
+  background: #FFF; }
+  #flipbox-link-fields-Link .pane .types:after {
+    content: '.';
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden; }
+  #flipbox-link-fields-Link .pane .type .remove {
+    float: right;
+    position: relative;
+    z-index: 2; }
+
+/*# sourceMappingURL=LinkConfiguration.css.map */

@@ -10,6 +10,7 @@ use craft\helpers\Db;
 use craft\helpers\Json;
 use flipbox\link\Link as LinkPlugin;
 use flipbox\link\types\TypeInterface;
+use flipbox\link\web\assets\settings\Settings;
 use yii\db\Schema;
 
 /**
@@ -20,11 +21,15 @@ class Link extends Field
 {
 
     /**
+     * Type objects that have been configured via the admin
+     *
      * @var TypeInterface[]
      */
     protected $types = [];
 
     /**
+     * Raw configurations that have been configured via the admin
+     *
      * @var array
      */
     protected $typeConfigs = [];
@@ -34,53 +39,90 @@ class Link extends Field
      */
     public function getTypes()
     {
+        // Make sure all un-resolved configs are resolved
+        $this->resolveConfigs();
+
         return $this->types;
     }
 
     /**
      * @param array $types
+     * @return $this
      */
     public function setTypes(array $types)
     {
-        foreach ($types as $type) {
-            if ($type = $this->resolveType($type)) {
-                $this->types[get_class($type)] = $type;
-            }
+        foreach($types as $identifier => $type) {
+            $this->typeConfigs[$identifier] = $type;
         }
+        return $this;
     }
 
     /**
-     * @param string $type
+     * @param string $identifier
      * @return TypeInterface
      */
-    public function getType(string $type)
+    public function getType(string $identifier)
     {
-        return ArrayHelper::getValue($this->types, $type);
-    }
+        // Is it already an object?
+        if(!array_key_exists($identifier, $this->types)) {
 
-    /**
-     * @param $type
-     * @return null|TypeInterface
-     */
-    protected function resolveType($type)
-    {
-        if (is_array($type)) {
-            if (!isset($type['class']) || empty($type['class'])) {
+            // Can we create it?
+            if(!$type = $this->createFromConfig($identifier)) {
                 return null;
             }
 
-            $type = \Yii::createObject(
-                $type
-            );
+            $this->types[$identifier] = $type;
+
         }
 
-        if (!$type instanceof TypeInterface) {
+        return $this->types[$identifier];
+    }
+
+    /**
+     * Create objects from all (remaining) configurations
+     *
+     * @return $this
+     */
+    private function resolveConfigs()
+    {
+        foreach($this->typeConfigs as $identifier => $config) {
+            $this->resolveConfig($identifier, $config);
+        }
+        $this->typeConfigs = [];
+    }
+
+    /**
+     * @param string $identifier
+     * @param array $config
+     * @return null|object
+     */
+    private function resolveConfig(string $identifier, array $config)
+    {
+        // cCreate new
+        if(!$type = LinkPlugin::getInstance()->getType()->create($config)) {
             return null;
         }
+
+        $type->setIdentifier($identifier);
+
+        // Cache it
+        $this->types[$identifier] = $type;
 
         return $type;
     }
 
+    /**
+     * @param string $identifier
+     * @return null|object
+     */
+    private function createFromConfig(string $identifier)
+    {
+        if(!$config = ArrayHelper::remove($this->typeConfigs, $identifier)) {
+            return null;
+        }
+
+        return $this->resolveConfig($identifier, $config);
+    }
 
     /**
      * @inheritdoc
@@ -103,11 +145,17 @@ class Link extends Field
      */
     public function getSettingsHtml()
     {
-        return Craft::$app->getView()->renderTemplate(
+
+        $view = Craft::$app->getView();
+
+        $view->registerAssetBundle(Settings::class);
+        
+        return $view->renderTemplate(
             'link/_components/fieldtypes/Link/settings',
             [
                 'field' => $this,
-                'types' => LinkPlugin::getInstance()->getType()->findAll()
+                'types' => LinkPlugin::getInstance()->getType()->findAll(),
+                'namespace' => $view->getNamespace()
             ]
         );
     }
@@ -139,7 +187,7 @@ class Link extends Field
         if($value instanceof TypeInterface) {
             $value = array_merge(
                 [
-                    'class' => get_class($value),
+                    'identifier' => $value->getIdentifier(),
                 ],
                 $value->getProperties()
             );
@@ -156,9 +204,11 @@ class Link extends Field
         $settings = parent::getSettings();
 
         // Merge the type settings
-        foreach ($this->getTypes() as $key => $type) {
-            $settings['types'][$key] = $type->getSettings();
-            $settings['types'][$key]['class'] = $key;
+        foreach ($this->getTypes() as $identifier => $type) {
+            $settings['types'][$identifier] = array_merge(
+                ['class' => get_class($type)],
+                $type->getSettings()
+            );
         }
 
         return $settings;
@@ -183,21 +233,23 @@ class Link extends Field
             return null;
         }
 
-        if (!$class = ArrayHelper::remove($value, 'class')) {
+        if (!$identifier = ArrayHelper::remove($value, 'identifier')) {
             return null;
         }
 
-        if ($types = ArrayHelper::remove($value, 'types')) {
-            $value = array_merge(
-                ArrayHelper::remove($types, $class, []),
-                $value
-            );
-        }
-
-        $type = $this->getType($class);
+        // Get the type
+        $type = $this->getType($identifier);
 
         if (!$type instanceof TypeInterface) {
             return null;
+        }
+
+        // When saving via the admin, there may be multiple 'types' configured
+        if ($types = ArrayHelper::remove($value, 'types')) {
+            $value = array_merge(
+                ArrayHelper::remove($types, $identifier, []),
+                $value
+            );
         }
 
         LinkPlugin::getInstance()->getType()->populate(

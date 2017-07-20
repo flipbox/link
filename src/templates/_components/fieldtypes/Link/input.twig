@@ -1,29 +1,28 @@
 {% import "_includes/forms" as forms %}
 {% from _self import renderTypes %}
+{% set identifierField = 'identifier' %}
 
 {% set options = [{
 label: 'Link type'|t('link')
 }] %}
-{% for type in field.types %}
+{% for key, type in field.types %}
     {% set options = options|merge([{
-    label: type.displayName(),
-    value: className(type)
+        label: type.displayName(),
+        value: key
     }]) %}
 {% endfor %}
 
-{% set activeClass = value is not empty ? className(value) : '' %}
+{% set activeIdentifier = value is not empty ? value.identifier : '' %}
 {% namespace field.handle %}
-
-{{ dump(value) }}
 
 <div class="field-type-flipbox-link" id="field-type-flipbox-link">
     {{ forms.selectField({
-        name: 'class',
-        id: 'class',
+        name: identifierField,
+        id: identifierField,
         options: options,
-        value: activeClass
+        value: value.identifier
     }) }}
-    {{ renderTypes(activeClass, field.types, field, value, element) }}
+    {{ renderTypes(activeIdentifier, field.types, field, value, element) }}
 </div>
 
 {% js %}
@@ -34,7 +33,7 @@ label: 'Link type'|t('link')
         $container.find("#"+type).removeClass('hidden');
     }
 
-    $("#{{ 'field-type-flipbox-link'|namespaceInputId|e('js') }}").find("#{{ 'class'|namespaceInputId|e('js') }}").change(function(e) {
+    $("#{{ 'field-type-flipbox-link'|namespaceInputId|e('js') }}").find("#{{ identifierField|namespaceInputId|e('js') }}").change(function(e) {
         Craft.updateTypeSettings(
             '{{ ''|namespaceInputId }}'+$(this).val(),
             $("#{{ 'field-type-flipbox-link'|namespaceInputId|e('js') }}")
@@ -43,12 +42,12 @@ label: 'Link type'|t('link')
 {% endjs %}
 {% endnamespace %}
 
-{% macro renderTypes(active, types, field, value, element) %}
-    {% for class, type in types %}
-        {% set isCurrent = active == class %}
-        {#{% set type = isCurrent ? value : type %}#}
-        <div id="{{ class|id }}" class="settings{% if not isCurrent %} hidden{% endif %}">
-            {% namespace 'types['~class~']' %}
+{% macro renderTypes(activeIdentifier, types, field, value, element) %}
+    {% for key, type in field.types %}
+        {% set isCurrent = activeIdentifier == type.identifier %}
+        {% set type = isCurrent ? value : type %}
+        <div id="{{ key|id }}" class="settings{% if not isCurrent %} hidden{% endif %}">
+            {% namespace 'types['~key~']' %}
             {{ type.inputHtml(field, value, element)|raw }}
             {% endnamespace %}
         </div>

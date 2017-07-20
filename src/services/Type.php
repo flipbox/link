@@ -5,6 +5,7 @@ namespace flipbox\link\services;
 use craft\helpers\ArrayHelper;
 use flipbox\link\events\RegisterLinkTypes;
 use flipbox\link\types\Asset as AssetType;
+use flipbox\link\types\Category as CategoryType;
 use flipbox\link\types\Entry as EntryType;
 use flipbox\link\types\TypeInterface;
 use flipbox\link\types\Url as UrlType;
@@ -17,6 +18,11 @@ class Type extends Component
      * The event name
      */
     const EVENT_REGISTER_TYPES = 'registerTypes';
+
+    /**
+     * The property to uniquely identify a link type
+     */
+    const IDENTIFIER = 'identifier';
 
     /**
      * @var array
@@ -33,6 +39,18 @@ class Type extends Component
         }
 
         return $this->types;
+    }
+
+    /**
+     * @param string $class
+     * @return TypeInterface|null
+     */
+    public function find(string $class)
+    {
+        return ArrayHelper::getValue(
+            $this->findAll(),
+            $class
+        );
     }
 
     /**
@@ -53,6 +71,9 @@ class Type extends Component
     }
 
     /**
+     * Populate valid properties.  This occurs when we have a content value
+     * and we need to populate it's contents on an existing TypeInterface
+     *
      * @param TypeInterface $type
      * @param array $properties
      */
@@ -83,15 +104,40 @@ class Type extends Component
     }
 
     /**
+     * @param $type
+     * @return array|null|object
+     */
+    public function create($type)
+    {
+        if ($type instanceof TypeInterface) {
+            return $type;
+        }
+
+        if (!is_array($type)) {
+            $type = ['class' => $type];
+        }
+
+        $type = \Yii::createObject(
+            $type
+        );
+
+        if (!$type instanceof TypeInterface) {
+            return null;
+        }
+
+        return $type;
+    }
+
+    /**
      * @return array
      */
     private function firstParty()
     {
         return [
             AssetType::class,
+            CategoryType::class,
             EntryType::class,
             UrlType::class
-
         ];
     }
 }

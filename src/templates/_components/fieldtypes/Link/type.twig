@@ -1,0 +1,5 @@
+{% namespace namespace %}
+    <input type="hidden" name="class" value="{{ className(type) }}" />
+    {{ type.settingsHtml()|raw }}
+    <a class="btn remove" href="#">Remove</a>
+{% endnamespace %}

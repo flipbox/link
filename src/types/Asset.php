@@ -6,6 +6,7 @@ use Craft;
 use craft\base\ElementInterface;
 use craft\elements\Asset as AssetElement;
 use craft\fields\Assets;
+use craft\helpers\ArrayHelper;
 
 /**
  * @method AssetElement findElement()
@@ -57,8 +58,25 @@ class Asset extends Assets implements TypeInterface
     /**
      * @inheritdoc
      */
+    public function settings(): array
+    {
+        // Get setting attributes from component
+        $settings = $this->settingsAttributes();
+
+        // Remove the public 'text' attribute (it's not a setting)
+        ArrayHelper::removeValue($settings, 'text');
+
+        return $settings;
+    }
+
+    /**
+     * @inheritdoc
+     */
     protected function inputTemplateVariables($value = null, ElementInterface $element = null): array
     {
-        return parent::inputTemplateVariables([$this->findElement()], $element);
+        return parent::inputTemplateVariables(
+            $this->findElement() ? [$this->findElement()] : null,
+            $element
+        );
     }
 }

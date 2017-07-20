@@ -16,6 +16,11 @@ interface TypeInterface
     /**
      * @return string
      */
+    public function getIdentifier(): string;
+
+    /**
+     * @return string
+     */
     public function getUrl(): string;
 
     /**

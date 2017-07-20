@@ -4,6 +4,7 @@ namespace flipbox\link\types\traits;
 
 use Craft;
 use craft\base\ElementInterface;
+use craft\helpers\ArrayHelper;
 use flipbox\link\fields\Link;
 use flipbox\link\types\TypeInterface;
 use yii\base\Exception;
@@ -19,7 +20,7 @@ trait Element
     {
         $this->handle = 'elementId';
         $this->id = static::class;
-        $this->allowLimit = true;
+        $this->allowLimit = false;
         $this->limit = 1;
     }
 
@@ -101,6 +102,11 @@ trait Element
             $elementId = reset($elementId);
         }
         $this->elementId = (int)$elementId;
+
+        // Clear element cache on change
+        if($this->element === false || ($this->element && $this->element->getId() !== $this->elementId)) {
+            $this->element = null;
+        }
     }
 
     /**

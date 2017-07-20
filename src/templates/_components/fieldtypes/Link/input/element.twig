@@ -1,16 +1,6 @@
 {% import "_includes/forms" as forms %}
 
-{{ forms.elementSelectField({
-    name: 'id',
-    id: 'id',
-    elements: elements,
-    elementType: elementType,
-    criteria: criteria,
-    limit: 1,
-    selectionLabel: type.label,
-    sourceElementId: sourceElementId,
-    storageKey: 'field.'~field.id~'.'~className(type)
-}) }}
+{{ elementSelectInput|raw }}
 
 {% if type.overrideText %}
     {{ forms.textField({

@@ -26,7 +26,7 @@
     {% set type = isCurrent ? attribute(field.types, class) : type %}
     <div id="{{ class|id }}"{% if not isCurrent %} class="hidden"{% endif %}>
         {% namespace 'types['~class~']' %}
-        {{ type.getSettingsHtml()|raw }}
+        {{ type.settingsHtml()|raw }}
         {% endnamespace %}
     </div>
 {% endfor %}

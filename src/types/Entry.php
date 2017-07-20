@@ -31,7 +31,7 @@ class Entry extends AbstractType
     private $id;
 
     /**
-     * @var \craft\elements\Entry
+     * @var EntryElement
      */
     private $entry;
 
@@ -79,7 +79,7 @@ class Entry extends AbstractType
     }
 
     /**
-     * @return \craft\elements\Entry
+     * @return EntryElement
      * @throws Exception
      */
     public function getEntry()
@@ -123,12 +123,12 @@ class Entry extends AbstractType
     /**
      * @inheritdoc
      */
-    public function getSettingsHtml(): string
+    public function settingsHtml(): string
     {
         return Craft::$app->getView()->renderTemplate(
             'link/_components/fieldtypes/Link/settings/entry',
             [
-                'sections' => Craft::$app->getSEctions()->getAllSections(),
+                'sections' => Craft::$app->getSections()->getAllSections(),
                 'type' => $this
             ]
         );
@@ -137,13 +137,13 @@ class Entry extends AbstractType
     /**
      * @inheritdoc
      */
-    public function getInputHtml(Link $field, $value, ElementInterface $element = null): string
+    public function inputHtml(Link $field, TypeInterface $type = null, ElementInterface $element = null): string
     {
         return Craft::$app->getView()->renderTemplate(
             'link/_components/fieldtypes/Link/input/entry',
             [
-                'value' => $value,
-                'sourceElementId' => $element ? $element->id : null,
+                'value' => $type,
+                'sourceElementId' => $element ? $element->getId() : null,
                 'elements' => $this->id ? [$this->getEntry()] : [],
                 'type' => $this,
                 'criteria' => $this->getCriteria(),
@@ -153,7 +153,10 @@ class Entry extends AbstractType
         );
     }
 
-    private function getCriteria()
+    /**
+     * @return array
+     */
+    private function getCriteria(): array
     {
         return [
             'status' => null,

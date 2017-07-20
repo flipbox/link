@@ -14,6 +14,8 @@ label: 'Link type'|t('link')
 {% set activeClass = value is not empty ? className(value) : '' %}
 {% namespace field.handle %}
 
+{{ dump(value) }}
+
 <div class="field-type-flipbox-link" id="field-type-flipbox-link">
     {{ forms.selectField({
         name: 'class',
@@ -44,10 +46,10 @@ label: 'Link type'|t('link')
 {% macro renderTypes(active, types, field, value, element) %}
     {% for class, type in types %}
         {% set isCurrent = active == class %}
-        {% set type = isCurrent ? value : type %}
+        {#{% set type = isCurrent ? value : type %}#}
         <div id="{{ class|id }}" class="settings{% if not isCurrent %} hidden{% endif %}">
             {% namespace 'types['~class~']' %}
-            {{ type.getInputHtml(field, value, element)|raw }}
+            {{ type.inputHtml(field, value, element)|raw }}
             {% endnamespace %}
         </div>
     {% endfor %}

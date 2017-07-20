@@ -2,7 +2,9 @@
 
 namespace flipbox\link\services;
 
+use craft\helpers\ArrayHelper;
 use flipbox\link\events\RegisterLinkTypes;
+use flipbox\link\types\Asset as AssetType;
 use flipbox\link\types\Entry as EntryType;
 use flipbox\link\types\TypeInterface;
 use flipbox\link\types\Url as UrlType;
@@ -17,12 +19,12 @@ class Type extends Component
     const EVENT_REGISTER_TYPES = 'registerTypes';
 
     /**
-     * @var TypeInterface[]
+     * @var array
      */
     private $types;
 
     /**
-     * @return TypeInterface[]
+     * @return array
      */
     public function findAll()
     {
@@ -34,7 +36,7 @@ class Type extends Component
     }
 
     /**
-     * @return TypeInterface[]
+     * @return array
      */
     protected function registerTypes()
     {
@@ -48,6 +50,19 @@ class Type extends Component
         );
 
         return $this->resolveTypes($event->types);
+    }
+
+    /**
+     * @param TypeInterface $type
+     * @param array $properties
+     */
+    public function populate(TypeInterface $type, array $properties)
+    {
+        foreach ($type->getProperties() as $key => $value) {
+            if(array_key_exists($key, $properties)) {
+                $type->{$key} = $properties[$key];
+            }
+        }
     }
 
     /**
@@ -68,13 +83,15 @@ class Type extends Component
     }
 
     /**
-     * @return TypeInterface[]
+     * @return array
      */
     private function firstParty()
     {
         return [
-            UrlType::class,
-            EntryType::class
+            AssetType::class,
+            EntryType::class,
+            UrlType::class
+
         ];
     }
 }

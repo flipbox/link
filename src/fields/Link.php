@@ -4,7 +4,7 @@ namespace flipbox\link\fields;
 
 use Craft;
 use craft\base\ElementInterface;
-use craft\base\Field as BaseField;
+use craft\base\Field;
 use craft\helpers\ArrayHelper;
 use craft\helpers\Db;
 use craft\helpers\Json;
@@ -16,7 +16,7 @@ use yii\db\Schema;
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */
-class Link extends BaseField
+class Link extends Field
 {
 
     /**
@@ -25,7 +25,12 @@ class Link extends BaseField
     protected $types = [];
 
     /**
-     * @return array
+     * @var array
+     */
+    protected $typeConfigs = [];
+
+    /**
+     * @return TypeInterface[]
      */
     public function getTypes()
     {
@@ -45,8 +50,17 @@ class Link extends BaseField
     }
 
     /**
+     * @param string $type
+     * @return TypeInterface
+     */
+    public function getType(string $type)
+    {
+        return ArrayHelper::getValue($this->types, $type);
+    }
+
+    /**
      * @param $type
-     * @return null|object
+     * @return null|TypeInterface
      */
     protected function resolveType($type)
     {
@@ -122,12 +136,14 @@ class Link extends BaseField
             return $value;
         }
 
-        $value = array_merge(
-            [
-                'class' => get_class($value),
-            ],
-            $value->getProperties()
-        );
+        if($value instanceof TypeInterface) {
+            $value = array_merge(
+                [
+                    'class' => get_class($value),
+                ],
+                $value->getProperties()
+            );
+        }
 
         return Db::prepareValueForDb($value);
     }
@@ -167,25 +183,28 @@ class Link extends BaseField
             return null;
         }
 
-        if (!$class = ArrayHelper::getValue($value, 'class')) {
+        if (!$class = ArrayHelper::remove($value, 'class')) {
             return null;
         }
 
         if ($types = ArrayHelper::remove($value, 'types')) {
-            $config = ArrayHelper::remove($types, $class);
-
             $value = array_merge(
-                $config,
+                ArrayHelper::remove($types, $class, []),
                 $value
             );
         }
 
-        $object = \Yii::createObject($value);
+        $type = $this->getType($class);
 
-        if (!$object instanceof TypeInterface) {
+        if (!$type instanceof TypeInterface) {
             return null;
         }
 
-        return $object;
+        LinkPlugin::getInstance()->getType()->populate(
+            $type,
+            $value
+        );
+
+        return $type;
     }
 }

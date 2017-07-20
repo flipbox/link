@@ -11,20 +11,7 @@ class Url extends AbstractType
     /**
      * @var
      */
-    public $text;
-
-    /**
-     * @var
-     */
     public $url;
-
-    /**
-     * @return string
-     */
-    public function getText(): string
-    {
-        return $this->text;
-    }
 
     /**
      * @return string
@@ -37,12 +24,12 @@ class Url extends AbstractType
     /**
      * @inheritdoc
      */
-    public function getInputHtml(Link $field, $value, ElementInterface $element = null): string
+    public function inputHtml(Link $field, TypeInterface $type = null, ElementInterface $element = null): string
     {
         return Craft::$app->getView()->renderTemplate(
             'link/_components/fieldtypes/Link/input/url',
             [
-                'value' => $value,
+                'value' => $type,
                 'element' => $element,
                 'type' => $this,
                 'field' => $field

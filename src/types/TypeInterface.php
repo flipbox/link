@@ -42,13 +42,13 @@ interface TypeInterface
     /**
      * @return string
      */
-    public function getSettingsHtml(): string;
+    public function settingsHtml(): string;
 
     /**
      * @param Link $field
-     * @param $value
+     * @param TypeInterface $type
      * @param ElementInterface|null $element
      * @return string
      */
-    public function getInputHtml(Link $field, $value, ElementInterface $element = null): string;
+    public function inputHtml(Link $field, TypeInterface $type = null, ElementInterface $element = null): string;
 }

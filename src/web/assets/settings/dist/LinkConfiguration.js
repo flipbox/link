@@ -26,8 +26,7 @@
                 var $link = $nav.children('a');
                 var id = $link.attr('href');
                 
-                var LinkType = new Craft.LinkType(
-                    this);
+                var LinkType = new Craft.LinkType(this);
                 
                 LinkType.setHtml($(id));
                 LinkType.$nav = $(value);
@@ -53,7 +52,7 @@
             var data = {
                 fieldId: this.fieldId,
                 type: this.$typeSelect.val(),
-                namespace: this.namespace+'[type-'+(this.getCount()+1)+']'
+                namespace: this.namespace
             };
 
             Craft.postActionRequest('link/type/settings', data, $.proxy(function(response, textStatus) {
@@ -117,10 +116,10 @@
         $link: null,
         $remove: null,
 
-        init: function(manager, label, html) {
+        init: function(manager, label, html, id) {
             
             this.manager = manager;
-            this.id = Math.random().toString(36).substr(2, 5);
+            this.id = id ? id : Math.random().toString(36).substr(2, 5);
             this.label = label;
             
             if(html) {

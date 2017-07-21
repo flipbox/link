@@ -19,7 +19,7 @@
     options: typeOptions
 }) }}
 
-<div id="{{ typeElementId }}" class="pane"{% if field.types|length == 0 %} style="display: none;"{% endif %}>
+<div id="{{ typeElementId }}" class="types-pane pane"{% if field.types|length == 0 %} style="display: none;"{% endif %}>
     <nav class="tabs">
         <ul>
             {% for type in field.types %}
@@ -31,10 +31,10 @@
     </nav>
     <div class="types">
         {% for type in field.types %}
-            <div id="{{ "tab"~loop.index }}" class="type">
+            <div id="{{ "tab"~loop.index }}" class="type{% if not loop.first %} hidden{% endif %}">
                 {% include "link/_components/fieldtypes/Link/type" with {
                     type: type,
-                    namespace: 'types[type-'~loop.index~']'
+                    namespace: 'types'
                 } only %}
                 {#{% namespace 'types[]' %}#}
                     {#<input type="hidden" name="class" value="{{ className(type) }}" />#}

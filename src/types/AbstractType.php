@@ -35,7 +35,12 @@ abstract class AbstractType extends Model implements TypeInterface
      */
     public function settingsHtml(): string
     {
-        return '';
+        return Craft::$app->getView()->renderTemplate(
+            'link/_components/fieldtypes/Link/settings/default',
+            [
+                'type' => $this
+            ]
+        );
     }
 
     /**

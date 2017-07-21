@@ -29,6 +29,12 @@ interface TypeInterface
     public function getIdentifier(): string;
 
     /**
+     * @param string $identifier
+     * @return static
+     */
+    public function setIdentifier(string $identifier);
+
+    /**
      * @return string
      */
     public function getUrl(): string;

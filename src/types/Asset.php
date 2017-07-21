@@ -31,6 +31,7 @@ class Asset extends Assets implements TypeInterface
     public function init()
     {
         parent::init();
+        $this->identifier = 'asset';
         $this->applyDefaultProperties();
     }
 

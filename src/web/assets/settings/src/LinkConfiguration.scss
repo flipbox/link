@@ -6,32 +6,32 @@
 /* ----------------------------------------*/
 
 /* config */
-#flipbox-link-fields-Link {
+.types-pane {
 
+  &,
   .pane {
     border: 1px solid #e3e5e8;
-    background: #FFF;
+    background: #FFF !important;
 
-    .types {
+  }
 
-      &:after {
-        @include clearafter;
-      }
+  .types {
 
-    }
-
-    .type {
-
-      .remove {
-        float:right;
-        position: relative;
-        z-index:2;
-
-      }
+    &:after {
+      @include clearafter;
 
     }
 
+  }
 
+  .type {
+
+    .remove {
+      float:right;
+      position: relative;
+      z-index:2;
+
+    }
 
   }
 

@@ -40,6 +40,11 @@ class TypeController extends Controller
             throw new HttpException("Type not found");
         }
 
+        // Allow explicit setting of the identifier
+        if($identifier = Craft::$app->getRequest()->getBodyParam('identifier')) {
+            $type->setIdentifier($identifier);
+        }
+
         $html = $view->renderTemplate(
             'link/_components/fieldtypes/Link/type',
             [

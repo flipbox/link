@@ -5,18 +5,19 @@
 /* Link
 /* ----------------------------------------*/
 /* config */
-#flipbox-link-fields-Link .pane {
+.types-pane,
+.types-pane .pane {
   border: 1px solid #e3e5e8;
-  background: #FFF; }
-  #flipbox-link-fields-Link .pane .types:after {
-    content: '.';
-    display: block;
-    height: 0;
-    clear: both;
-    visibility: hidden; }
-  #flipbox-link-fields-Link .pane .type .remove {
-    float: right;
-    position: relative;
-    z-index: 2; }
+  background: #FFF !important; }
+.types-pane .types:after {
+  content: '.';
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden; }
+.types-pane .type .remove {
+  float: right;
+  position: relative;
+  z-index: 2; }
 
 /*# sourceMappingURL=LinkConfiguration.css.map */

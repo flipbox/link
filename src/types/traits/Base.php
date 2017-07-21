@@ -46,7 +46,7 @@ trait Base
      */
     public function getText(): string
     {
-        return $this->text;
+        return $this->text ?: '';
     }
 
     /**

@@ -25,17 +25,13 @@ class Category extends Categories implements TypeInterface
 
     use traits\Element;
 
-    public function getElements()
-    {
-        return null;
-    }
-
     /**
      * @inheritdoc
      */
     public function init()
     {
         parent::init();
+        $this->identifier = 'category';
         $this->applyDefaultProperties();
     }
 

@@ -24,11 +24,25 @@ class Url extends AbstractType
     public $url;
 
     /**
+     * @var string
+     */
+    protected $identifier = 'url';
+
+    /**
+     * @inheritdoc
+     */
+    public function init()
+    {
+        parent::init();
+        $this->identifier = 'url';
+    }
+
+    /**
      * @return string
      */
     public function getUrl(): string
     {
-        return $this->url;
+        return $this->url ?: '';
     }
 
     /**

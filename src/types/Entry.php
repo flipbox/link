@@ -31,6 +31,7 @@ class Entry extends Entries implements TypeInterface
     public function init()
     {
         parent::init();
+        $this->identifier = 'entry';
         $this->applyDefaultProperties();
     }
 

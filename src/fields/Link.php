@@ -58,6 +58,7 @@ class Link extends Field
     public function setTypes(array $types)
     {
         foreach ($types as $identifier => $type) {
+            $identifier = is_array($type) ? ArrayHelper::getValue($type, 'identifier', $identifier) : $identifier;
             $this->typeConfigs[$identifier] = $type;
         }
         return $this;
@@ -237,14 +238,16 @@ class Link extends Field
             return null;
         }
 
-        if (!$identifier = ArrayHelper::remove($value, 'identifier')) {
-            return null;
+        // Get the type by identifier
+        if ($identifier = ArrayHelper::remove($value, 'identifier')) {
+            $type = $this->getType($identifier);
+        } else {
+            if ($class = ArrayHelper::remove($value, 'class')) {
+                $type = LinkPlugin::getInstance()->getType()->create($class);
+            }
         }
 
-        // Get the type
-        $type = $this->getType($identifier);
-
-        if (!$type instanceof TypeInterface) {
+        if (empty($type) || !$type instanceof TypeInterface) {
             return null;
         }
 

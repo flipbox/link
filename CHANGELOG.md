@@ -1,6 +1,16 @@
 # Changelog
 All Notable changes to `flipboxdigital\link` will be documented in this file
 
+## 1.0.0-beta.2 - 2017-7-21
+### Added
+- The ability to add multiple link types (of the same kind).
+- The concept of type identifiers to uniquely identify a link type (vs the class name)
+
+### Changed
+- Urls are now stored in the database using an identifier (although class names are still supported).
+- The field configuration UI is more intuitive
+- The format in which field settings are stored (breaking change).
+
 ## 1.0.0-beta.1 - 2017-7-19
 ### Fixed
 - Issue when multiple link fields were present via matrix fields

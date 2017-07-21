@@ -1,7 +1,7 @@
 {
   "name": "flipboxdigital/link",
   "description": "Link Field Type",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "type": "craft-plugin",
   "minimum-stability": "beta",
   "prefer-stable": true,
@@ -33,7 +33,7 @@
     "class": "flipbox\\link\\Link",
     "hasCpSettings": false,
     "hasCpSection": false,
-    "schemaVersion": "1.0.0",
+    "schemaVersion": "1.1.0",
     "components": {
       "type": "flipbox\\link\\services\\Type"
     },

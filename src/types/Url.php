@@ -59,7 +59,7 @@ class Url extends AbstractType
     public function inputHtml(Link $field, TypeInterface $type = null, ElementInterface $element = null): string
     {
         return Craft::$app->getView()->renderTemplate(
-            'link/_components/fieldtypes/Link/input/url',
+            'link/_components/fieldtypes/Link/types/url/input',
             [
                 'value' => $type,
                 'element' => $element,

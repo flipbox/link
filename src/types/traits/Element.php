@@ -125,7 +125,7 @@ trait Element
     public function inputHtml(Link $field, TypeInterface $type = null, ElementInterface $element = null): string
     {
         return Craft::$app->getView()->renderTemplate(
-            'link/_components/fieldtypes/Link/input/element',
+            'link/_components/fieldtypes/Link/types/element/input',
             [
                 'value' => $type,
                 'field' => $field,
@@ -141,7 +141,7 @@ trait Element
     public function settingsHtml(): string
     {
         return Craft::$app->getView()->renderTemplate(
-            'link/_components/fieldtypes/Link/settings/element',
+            'link/_components/fieldtypes/Link/types/element/settings',
             [
                 'type' => $this,
                 'elementSelectSettings' => $this->getSettingsHtml()

@@ -38,6 +38,14 @@ class Entry extends Entries implements TypeInterface
     /**
      * @inheritdoc
      */
+    public static function displayName(): string
+    {
+        return Craft::t('link', 'Entry');
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function getElementText(): string
     {
         if (!$element = $this->findElement()) {

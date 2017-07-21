@@ -38,6 +38,14 @@ class Asset extends Assets implements TypeInterface
     /**
      * @inheritdoc
      */
+    public static function displayName(): string
+    {
+        return Craft::t('link', 'Asset');
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function getElementText(): string
     {
         if (!$element = $this->findElement()) {

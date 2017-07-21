@@ -38,6 +38,14 @@ class Category extends Categories implements TypeInterface
     /**
      * @inheritdoc
      */
+    public static function displayName(): string
+    {
+        return Craft::t('link', 'Category');
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function getElementText(): string
     {
         if (!$element = $this->findElement()) {

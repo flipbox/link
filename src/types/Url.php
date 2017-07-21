@@ -38,6 +38,14 @@ class Url extends AbstractType
     }
 
     /**
+     * @inheritdoc
+     */
+    public static function displayName(): string
+    {
+        return Craft::t('link', 'Url');
+    }
+
+    /**
      * @return string
      */
     public function getUrl(): string

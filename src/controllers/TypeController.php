@@ -41,7 +41,7 @@ class TypeController extends Controller
         }
 
         // Allow explicit setting of the identifier
-        if($identifier = Craft::$app->getRequest()->getBodyParam('identifier')) {
+        if ($identifier = Craft::$app->getRequest()->getBodyParam('identifier')) {
             $type->setIdentifier($identifier);
         }
 

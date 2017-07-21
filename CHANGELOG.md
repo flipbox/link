@@ -1,6 +1,10 @@
 # Changelog
 All Notable changes to `flipboxdigital\link` will be documented in this file
 
+## Unreleased
+### Added
+- Admin panel icon
+
 ## 1.0.0-beta.2 - 2017-7-21
 ### Added
 - The ability to add multiple link types (of the same kind).

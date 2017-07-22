@@ -1,9 +1,13 @@
 # Changelog
 All Notable changes to `flipboxdigital\link` will be documented in this file
 
-## Unreleased
+## 1.0.0-beta.3 - 2017-7-21
 ### Added
 - Admin panel icon
+
+### Fixed
+- Field input error when no value is present
+- Redundant type logic for native Url
 
 ## 1.0.0-beta.2 - 2017-7-21
 ### Added

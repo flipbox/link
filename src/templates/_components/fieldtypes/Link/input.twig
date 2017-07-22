@@ -12,7 +12,7 @@ label: 'Link type'|t('link')
     }]) %}
 {% endfor %}
 
-{% set activeIdentifier = value is not empty ? value.identifier : '' %}
+{% set activeIdentifier = value ? value.identifier : '' %}
 {% namespace field.handle %}
 
 <div class="field-type-flipbox-link" id="field-type-flipbox-link">
@@ -20,7 +20,7 @@ label: 'Link type'|t('link')
         name: identifierField,
         id: identifierField,
         options: options,
-        value: value.identifier
+        value: value ? value.identifier : null
     }) }}
     {{ renderTypes(activeIdentifier, field.types, field, value, element) }}
 </div>
@@ -45,7 +45,7 @@ label: 'Link type'|t('link')
 {% macro renderTypes(activeIdentifier, types, field, value, element) %}
     {% for key, type in field.types %}
         {% set isCurrent = activeIdentifier == type.identifier %}
-        {% set type = isCurrent ? value : type %}
+        {% set type = isCurrent and value ? value : type %}
         <div id="{{ key|id }}" class="settings{% if not isCurrent %} hidden{% endif %}">
             {% namespace 'types['~key~']' %}
             {{ type.inputHtml(field, value, element)|raw }}

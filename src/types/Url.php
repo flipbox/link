@@ -31,15 +31,6 @@ class Url extends AbstractType
     /**
      * @inheritdoc
      */
-    public function init()
-    {
-        parent::init();
-        $this->identifier = 'url';
-    }
-
-    /**
-     * @inheritdoc
-     */
     public static function displayName(): string
     {
         return Craft::t('link', 'Url');

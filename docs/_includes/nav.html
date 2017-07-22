@@ -1,0 +1,7 @@
+{% assign navurl = page.url | remove: 'index.html' %}
+{% for item in include.nav %}
+    <h3 class="title{% if item.url == navurl %} selected{% endif %}">{{ item.text }}</h3>
+    {% if item.subitems %}
+        {% include subnav.html nav=item.subitems recursive=true ulClass=include.ulClass %}
+    {% endif %}
+{% endfor %}

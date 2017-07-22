@@ -1,0 +1,17 @@
+- text: Getting Started
+  url: /
+  subitems:
+  - text: Introduction
+    url: /
+  - text: Installation / Upgrading
+    url: /install/
+  - text: Support
+    url: https://github.com/flipbox/link/issues
+  - text: Changelog
+    url: https://github.com/flipbox/link/blob/master/CHANGELOG.md
+- text: Templating
+  url: /twig/
+- text: Field Type
+  url: /field/
+- text: Developers
+  url: /developers/

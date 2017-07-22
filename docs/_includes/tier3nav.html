@@ -1,0 +1,13 @@
+{% for item in site.data.menu %}
+{% if item.subitems %}
+{% for subItem in item.subitems %}
+{% if include.url == subItem.url %}
+{% if subItem.subitems %}
+{% include subnav.html nav=subItem.subitems recursive=include.recursive %}
+{% else %}
+<p class="no-results"><i>No {{ subItem.text }} items were found...</i></p>
+{% endif %}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endfor %}

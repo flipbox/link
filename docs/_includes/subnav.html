@@ -1,0 +1,17 @@
+<ul{% if include.ulClass %} class="{{ include.ulClass }}"{% endif %}>
+    {% if include.removeFirst %}
+    {% assign offsetCount = 1 %}
+    {% else %}
+    {% assign offsetCount = 0 %}
+    {% endif %}
+    {% for item in include.nav offset:offsetCount %}
+        <li{% if item.url == navurl %} class="selected"{% endif %}>
+            <a href="{{ item.url }}">
+                {{ item.text }}
+            </a>
+            {% if item.subitems and include.recursive %}
+                {% include subnav.html nav=item.subitems recursive=include.recursive ulClass=include.ulClass %}
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>

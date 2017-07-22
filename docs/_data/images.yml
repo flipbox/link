@@ -1,0 +1,8 @@
+# Path to project specific favicon.ico, leave blank to use default
+favicon: 'https://s3.amazonaws.com/theme.flipbox/assets/1.0.0/favicon.ico'
+
+# Path to project specific apple-touch-icon-precomposed.png, leave blank to use default
+apple_touch:
+
+# Path to project logo
+logo: 'http://flipboxfactory.com/assets/images/theme/flipbox-factory-logo.png'

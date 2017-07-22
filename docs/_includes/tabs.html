@@ -1,0 +1,7 @@
+<ul class="nav nav-tabs{% if include.ulClass %} {{ include.ulClass }}{% endif %}" role="tablist">
+    {% for tab in include.tabs %}
+    <li role="presentation"{% if tab.text == 'Documentation' %} class="active"{% endif %}>
+        <a href="/account/profile" role="tab">{{ tab.text }}</a>
+    </li>
+    {% endfor %}
+</ul>

@@ -154,7 +154,7 @@ trait Element
      */
     public function getText(): string
     {
-        if ($this->text !== null) {
+        if ($this->text) {
             return $this->text;
         }
         return $this->getElementText();

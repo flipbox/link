@@ -21,7 +21,7 @@ trait Base
     /**
      * @var string
      */
-    public $text;
+    protected $text;
 
     /**
      * @var string
@@ -47,6 +47,16 @@ trait Base
     public function getText(): string
     {
         return $this->text ?: '';
+    }
+
+    /**
+     * @param string $text
+     * @return static
+     */
+    public function setText(string $text)
+    {
+        $this->text = $text;
+        return $this;
     }
 
     /**

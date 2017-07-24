@@ -1,6 +1,10 @@
 # Changelog
 All Notable changes to `flipboxdigital\link` will be documented in this file
 
+## 1.0.0-beta.4 - 2017-7-24
+### Fixed
+- Conflict with a Link Type's text property when accessed via twig template
+
 ## 1.0.0-beta.3 - 2017-7-21
 ### Added
 - Admin panel icon

@@ -50,4 +50,51 @@ abstract class AbstractType extends Model implements TypeInterface
     {
         return '';
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributes()
+    {
+        return array_merge(
+            parent::attributes(),
+            [
+                'text'
+            ]
+        );
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return array_merge(
+            parent::attributeLabels(),
+            [
+                'text' => Craft::t('link', 'Text')
+            ]
+        );
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return array_merge(
+            parent::rules(),
+            [
+                [
+                    [
+                        'text'
+                    ],
+                    'safe',
+                    'on' => [
+                        Model::SCENARIO_DEFAULT
+                    ]
+                ]
+            ]
+        );
+    }
 }

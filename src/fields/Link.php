@@ -240,7 +240,7 @@ class Link extends Field
 
         // Get the type by identifier
         if ($identifier = ArrayHelper::remove($value, 'identifier')) {
-            $type = $this->getType($identifier);
+            $type = $this->createFromConfig($identifier);
         } else {
             if ($class = ArrayHelper::remove($value, 'class')) {
                 $type = LinkPlugin::getInstance()->getType()->create($class);
